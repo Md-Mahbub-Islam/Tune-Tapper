@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
     public float jumpAmount = 0;
     private bool canJump = false;
 
+    //variable for text mesh
+    public GameObject textMesh;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +26,23 @@ public class PlayerController : MonoBehaviour
             canJump = false;
 
         }
+
+        // Get the current position of the player
+        Vector3 position = transform.position;
+        Debug.Log(position);
+
+        // if player y is less than -20, then game over
+        //enable text mesh
+        if (position.y < -20)
+        {
+            textMesh.SetActive(true);
+        }
+
+
     }
+
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Platform")

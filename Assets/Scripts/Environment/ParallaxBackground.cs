@@ -25,7 +25,7 @@ public class ParallaxBackground : MonoBehaviour
 
         if (StartPos.x - textureUnitSizeX >= transform.position.x)
         {
-            Debug.Log("tekstuuri loppui");
+            Debug.Log("the texture ran out");
             float offSetPosX = (StartPos.x - transform.position.x) % textureUnitSizeX;
             transform.position = new Vector3(StartPos.x + offSetPosX, transform.position.y);
         }

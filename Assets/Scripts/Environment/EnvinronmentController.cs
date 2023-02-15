@@ -10,6 +10,8 @@ public class EnvinronmentController : MonoBehaviour
 
     //public int sampleSize = 512;
     public float maxJump = 4f;
+    public float HeightAdjust = 4f;
+    public float VocalRangeScale = 1f;
 
     //public int musicBPM = 130;
     //public float spawnTimer = 2f;
@@ -188,7 +190,8 @@ public class EnvinronmentController : MonoBehaviour
 
     private void CreateNewCube(float height)
     {
-        height -= 3;
+        height *= VocalRangeScale;
+        height += HeightAdjust;
         Debug.Log("height: " + height);
 
         float spawnX = 14.5f;
@@ -197,7 +200,7 @@ public class EnvinronmentController : MonoBehaviour
         {
             // Last objects width + right edge
             float width = lastObject.GetComponent<SpriteRenderer>().bounds.size.x;
-            float lastX = lastObject.transform.position.x + width;
+            float lastX = lastObject.transform.position.x + width/2;
 
             // If last object was higher
             if (lastHeight >= height)
@@ -228,7 +231,10 @@ public class EnvinronmentController : MonoBehaviour
         spriteRenderer.sprite = ReturnSprite((int)height);
         Debug.Log("height: " + height);
 
-        cube.transform.position = new Vector3(spawnX, -1f - spriteRenderer.size.y/2 + height/2, 0);
+        if (height < -3)
+            height = -2;
+
+        cube.transform.position = new Vector3(spawnX, -spriteRenderer.size.y/2 + height, 0);
         cube.tag = "Platform";
 
         var rigidBody = cube.AddComponent<Rigidbody2D>();

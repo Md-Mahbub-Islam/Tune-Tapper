@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - FallDeath
+  - Collectible
   layers:
   - Default
   - TransparentFX

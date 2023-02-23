@@ -37,6 +37,8 @@ public class EnvinronmentController : MonoBehaviour
     public Sprite sprite6;
     public Sprite sprite7;
 
+    public GameObject collectible;
+
     //private GameObject line;
     //private LineRenderer lineRenderer;
 
@@ -200,7 +202,7 @@ public class EnvinronmentController : MonoBehaviour
         {
             // Last objects width + right edge
             float width = lastObject.GetComponent<SpriteRenderer>().bounds.size.x;
-            float lastX = lastObject.transform.position.x + width/2;
+            float lastX = lastObject.transform.position.x + width / 2;
 
             // If last object was higher
             if (lastHeight >= height)
@@ -209,7 +211,7 @@ public class EnvinronmentController : MonoBehaviour
             {
                 // Else we calculate the hypotenuse so we know the max distance
                 // this would be better to change somehow
-                float hypo = (float)Math.Sqrt(Math.Pow(maxJump/2, 2) + Math.Pow(height - lastHeight, 2));
+                float hypo = (float)Math.Sqrt(Math.Pow(maxJump / 2, 2) + Math.Pow(height - lastHeight, 2));
                 Debug.Log("hypo: " + hypo + ", maxJump: " + maxJump);
 
                 if (hypo < maxJump)
@@ -219,7 +221,7 @@ public class EnvinronmentController : MonoBehaviour
                     float percent = maxJump / (hypo);
                     Debug.Log("percent: " + percent);
                     spawnX = lastX + maxJump * percent;
-                    height = lastHeight + (height - lastHeight)*percent;
+                    height = lastHeight + (height - lastHeight) * percent;
                 }
             }
         }
@@ -234,7 +236,7 @@ public class EnvinronmentController : MonoBehaviour
         if (height < -3)
             height = -2;
 
-        cube.transform.position = new Vector3(spawnX, -spriteRenderer.size.y/2 + height, 0);
+        cube.transform.position = new Vector3(spawnX, -spriteRenderer.size.y / 2 + height, 0);
         cube.tag = "Platform";
 
         var rigidBody = cube.AddComponent<Rigidbody2D>();
@@ -252,6 +254,11 @@ public class EnvinronmentController : MonoBehaviour
         //var sprite = Resources.Load<Sprite>("../../Graphics/piano4keyrev");
         //var texture = Resources.Load<Texture2D>("/Graphics/piano4keyrev");
         //var sprite = Sprite.Create(block, new Rect(0, 0, 32, 32), new Vector2(16, 16));
+        if (UnityEngine.Random.Range(0, 10) == 0)
+        {
+            Instantiate(collectible, new Vector2(spawnX, spriteRenderer.size.y / 2 + height + 2), Quaternion.identity);
+
+        }
     }
 
     private Sprite ReturnSprite(int height)

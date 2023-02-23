@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
     private float originalBackgroundSpeed = 0;
     private float originalObjectSpeed = 0;
 
+    public int collectedItemsCount = 0;
+    public int collectedItemsFactor = 0;
+    public GameObject[] collectedItems;
+    public Sprite[] collectedItemsSprites;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +98,28 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Collectible")
+        {
+            collectedItems[collectedItemsCount].SetActive(true);
+            collectedItemsCount++;
+            if (collectedItemsCount % 5 == 0)
+            {
+                collectedItemsCount = 0;
+                collectedItemsFactor++;
+                for (int i = 0; i < collectedItems.Length; i++)
+                {
+                    collectedItems[i].GetComponent<SpriteRenderer>().sprite = collectedItemsSprites[collectedItemsFactor];
+                    if (i != 0)
+                    {
+                        collectedItems[i].SetActive(false);
+                    }
+                }
+            }
+            Destroy(collision.gameObject);
+        }
+    }
 
     private IEnumerator Respawn()
     {
@@ -101,6 +128,7 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector2(transform.position.x, lastSavepoint.position.y);
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+
 
         parallaxBackground.parallaxEffectMultiplier = originalBackgroundSpeed * -1;
         envinronmentController.objectSpeed = originalObjectSpeed * -1;

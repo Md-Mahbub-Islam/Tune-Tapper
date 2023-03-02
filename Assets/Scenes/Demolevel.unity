@@ -450,6 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448587269}
   - component: {fileID: 448587268}
+  - component: {fileID: 448587270}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -568,6 +569,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448587270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448587267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16be2e0391536684789d7a5288f92abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &474890555
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5322622c23b35914290171e5450aa888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpAmount: 25
+  jumpAmount: 20
   jumpingSprite: {fileID: 21300000, guid: 97f32f743de70bc44b74f608e888e152, type: 3}
   effectsSource: {fileID: 2030728530}
   jump: {fileID: 8300000, guid: 62c78dc1af1e8594abb95488a1a11ff0, type: 3}
@@ -866,7 +879,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5b2f23b9666339a4fadb6d988b6cd720, type: 3}
 --- !u!95 &606060220
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -883,7 +896,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &735932610
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +936,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &735932612
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -940,7 +953,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

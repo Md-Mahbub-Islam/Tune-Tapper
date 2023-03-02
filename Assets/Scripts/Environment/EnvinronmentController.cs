@@ -8,6 +8,10 @@ public class EnvinronmentController : MonoBehaviour
     public float objectSpeed = 0;
     AudioSource _music;
 
+    static AudioClip userMusic;
+    static float userHeightAdjust;
+    static float userVocalRangeScale;
+
     //public int sampleSize = 512;
     public float maxJump = 4f;
     public float HeightAdjust = 4f;
@@ -39,12 +43,32 @@ public class EnvinronmentController : MonoBehaviour
 
     public GameObject collectible;
 
+    public static void SetAudioSource(AudioClip ac, float heightAdjust, float vocalRangeAdjust)
+    {
+        Debug.Log("SetAudioSource");
+        userMusic = ac;
+        userHeightAdjust = heightAdjust;
+        userVocalRangeScale = vocalRangeAdjust;
+    }
+
     //private GameObject line;
     //private LineRenderer lineRenderer;
 
     void Start()
     {
         _music = GetComponent<AudioSource>();
+
+        Debug.Log("userMusic: " + userMusic);
+
+        if (userMusic != null)
+        {
+            _music.clip = userMusic;
+            _music.Play();
+
+            HeightAdjust += userHeightAdjust;
+            VocalRangeScale = userVocalRangeScale;
+        }
+
         _music.time = objectSpeed;
 
         /*line = new GameObject();

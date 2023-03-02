@@ -11,8 +11,7 @@ public class MainMenuScript : MonoBehaviour
     public Button buttonSettings;
     public Button buttonQuit;
     
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,4 +29,7 @@ public class MainMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("Demolevel");
     }
+
+
+    
 }

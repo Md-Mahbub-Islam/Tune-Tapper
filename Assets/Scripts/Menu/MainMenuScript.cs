@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
+#if UNITY_EDITOR
+using UnityEditor;  
+#endif
 using UnityEngine.Networking;
 using TMPro;
 
@@ -41,6 +43,13 @@ public class MainMenuScript : MonoBehaviour
         SceneManager.LoadScene("Demolevel");
     }
 
+    //Quit
+    public void QuitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
+
 
     
     public void PlayOwnSong()
@@ -50,8 +59,10 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadPath()
     {
+        #if UNITY_EDITOR // loading will not work in a build, only in the editor
         path = EditorUtility.OpenFilePanel("Select song", "", "mp3");
         selectedSong.text = path;
+        #endif
     }
 
     IEnumerator GetAudioClip()
@@ -61,7 +72,7 @@ public class MainMenuScript : MonoBehaviour
 
         yield return webRequest.SendWebRequest();
 
-        if (webRequest.isNetworkError)
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {
             Debug.Log(webRequest.error);
         }

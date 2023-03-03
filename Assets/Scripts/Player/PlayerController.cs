@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,16 +31,27 @@ public class PlayerController : MonoBehaviour
     public GameObject[] collectedItems;
     public Sprite[] collectedItemsSprites;
 
+
+    // textmesh pro score text
+    public TextMeshProUGUI scoreText;
+
+    private int Score = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         playerRrgbd = gameObject.GetComponent<Rigidbody2D>();
         spriteAnimator = gameObject.GetComponent<Animator>();
+        StartCoroutine(UpdateScore());
     }
+
 
     // Update is called once per frame
     void Update()
     {
+        
+        
+
         // Jump, adjust jump amount from inspector, not from here
         if (Input.GetKeyDown("space") && canJump)
         {
@@ -66,6 +79,7 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
             audioSource.pitch = 1;
             environmentAudioSource.Play();
+            StartCoroutine(UpdateScore());
 
         }
         else if (respawning)
@@ -73,8 +87,15 @@ public class PlayerController : MonoBehaviour
             audioSource.pitch = Mathf.Clamp(audioSource.pitch - .1f * Time.deltaTime, -100, 1);
             envinronmentController.objectSpeed = Mathf.Clamp(envinronmentController.objectSpeed - (originalObjectSpeed * .1f * Time.deltaTime), -100, 1);
             parallaxBackground.parallaxEffectMultiplier = Mathf.Clamp(parallaxBackground.parallaxEffectMultiplier - (originalBackgroundSpeed * .1f * Time.deltaTime), -100, 1);
+            
+            Score = 0;
+            scoreText.text = Score.ToString();
+
+
+        
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Platform")
@@ -94,7 +115,14 @@ public class PlayerController : MonoBehaviour
             parallaxBackground.parallaxEffectMultiplier = 0;
             audioSource.pitch = 0;
             environmentAudioSource.Pause();
+
+            StopCoroutine(UpdateScore());
+            Score = 0;
+            scoreText.text = Score.ToString();
+
             StartCoroutine(Respawn());
+          
+            
         }
 
     }
@@ -135,6 +163,22 @@ public class PlayerController : MonoBehaviour
         audioSource.pitch = -1;
 
         yield return null;
+    }
+
+
+    //UpdateScore() is a coroutine that updates the score every second
+    private IEnumerator UpdateScore()
+    {
+        while (true)
+        {
+        // update score every second
+        yield return new WaitForSeconds(1);
+        Score+=1;
+        scoreText.text = Score.ToString();
+        
+        // print to console
+        Debug.Log("Score: " + Score);
+        }
     }
 
 }

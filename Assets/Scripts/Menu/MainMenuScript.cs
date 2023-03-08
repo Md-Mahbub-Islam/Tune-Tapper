@@ -61,7 +61,11 @@ public class MainMenuScript : MonoBehaviour
     {
         #if UNITY_EDITOR // loading will not work in a build, only in the editor
         path = EditorUtility.OpenFilePanel("Select song", "", "mp3");
-        selectedSong.text = path;
+        
+        //List<string> paths = new List<string>();
+        var paths = path.Split('/');
+
+        selectedSong.text = paths[paths.Length-1];
         #endif
     }
 
